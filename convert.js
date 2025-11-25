@@ -124,7 +124,7 @@ async function convertLottieToGIF(inputJSON, outputGIF) {
     gifStream.on("finish", async () => {
         try {
             await fs.remove(framesDir);
-            console.log("\n🧹 Frames folder deleted successfully.");
+            console.log("\n🧹  Frames folder deleted successfully.");
         } catch (err) {
             console.error("\n⚠️ Failed to delete frames folder:", err);
         }

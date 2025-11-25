@@ -119,7 +119,16 @@ async function convertLottieToGIF(inputJSON, outputGIF) {
     encoder.finish();
 
     console.log(`\n\n✅ GIF created successfully → ${outputGIF}`);
-    console.log(`📁 PNG frames saved at: ${framesDir}`);
+
+    // ✅ Wait until GIF file is fully written, then delete frames folder
+    gifStream.on("finish", async () => {
+        try {
+            await fs.remove(framesDir);
+            console.log("\n🧹 Frames folder deleted successfully.");
+        } catch (err) {
+            console.error("\n⚠️ Failed to delete frames folder:", err);
+        }
+    });
 }
 
 if (process.argv.length < 4) {
